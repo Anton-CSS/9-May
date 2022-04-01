@@ -1,7 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 let mode = "development";
 if (process.env.NODE_ENV === "production") {
     mode = "production";
@@ -20,7 +20,7 @@ module.exports = {
         filename: `${name()}.js`,
         clean: true,
         assetModuleFilename: "images/[hash][ext][query]",
-        publicPath: PREFIX,
+        publicPath: "",
     },
     resolve: {
         extensions: [".js", ".ts", ".jsx", ".tsx"],
@@ -41,6 +41,11 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: "./index.html",
             filename: "404.html",
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {from: path.resolve(__dirname, 'src/assets') , to: path.resolve(__dirname, 'app')}
+            ]
         }),
     ],
     module: {
