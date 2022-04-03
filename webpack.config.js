@@ -2,14 +2,15 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 let mode = "development";
 if (process.env.NODE_ENV === "production") {
     mode = "production";
 }
 
-const PREFIX = process.env.NODE_ENV === "production" ? "Diplom-OTUS" : "/";
+const PREFIX = process.env.NODE_ENV === "production" ? "" : "";
 
-const name = () => (mode === "development" ? `[name]` : `[name].[contenthash]`);
+const name = () => (mode === "development" ? `[name]` : `[name]`);
 
 module.exports = {
     context: path.resolve(__dirname, "src"),
@@ -19,8 +20,8 @@ module.exports = {
         path: path.resolve(__dirname, "dist"),
         filename: `${name()}.js`,
         clean: true,
-        assetModuleFilename: "images/[hash][ext][query]",
-        publicPath: "",
+        assetModuleFilename: "images/[name][ext]",
+        publicPath: '',
     },
     resolve: {
         extensions: [".js", ".ts", ".jsx", ".tsx"],
@@ -44,7 +45,10 @@ module.exports = {
         }),
         new CopyWebpackPlugin({
             patterns: [
-                {from: path.resolve(__dirname, 'src/assets') , to: path.resolve(__dirname, 'app')}
+                {
+                    from: path.resolve(__dirname, 'src/assets'),
+                    to: path.resolve(__dirname, 'dist/assets')
+                }
             ]
         }),
     ],
@@ -57,7 +61,12 @@ module.exports = {
             {
                 test: /\.(sa|sc|c)ss$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: '../'
+                        }
+                    },
                     "css-loader",
                     {
                         loader: "postcss-loader",
@@ -91,3 +100,6 @@ module.exports = {
         ],
     },
 };
+
+
+

@@ -28,6 +28,7 @@
     bottom: -100px;
     right: -250px;
     z-index: 0;
+    display: block;
   }
   &__girl{
     position: absolute;
@@ -37,7 +38,7 @@
   p{
     max-width: 360px;
     margin-top: 40%;
-    font-weight: 600;
+    font-weight: 800;
   }
   strong{
     display: block;
@@ -121,8 +122,12 @@
   text-decoration: none;
   margin-bottom: 20px;
   border-radius: 5px;
+  transform: scale(1);
+  transition: transform 0.5s linear;
   &:hover{
     color: white;
+    transform: scale(1.01);
+    transition: transform 0.5s linear;
     &:hover span{
       background-color: #dc4128;
       transition: all 0.5s linear;
@@ -197,7 +202,7 @@
       margin: auto 0;
       width: 30px;
       height: 30px;
-      background: url("../img/pdf.svg") no-repeat center / cover;
+      background: url("../img/pdf.png") no-repeat center / cover;
     }
     &:after{
       content:'';
@@ -208,12 +213,20 @@
       margin: auto 0;
       width: 30px;
       height: 30px;
-      background: url("../img/download.svg") no-repeat center / cover;
+      background: url("../img/download.png") no-repeat center / cover;
     }
   }
 }
 
 .films{
+  &__item{
+    transform: scale(1);
+    transition: transform 0.5s linear;
+    &:hover{
+      transform: scale(1.03);
+      transition: transform 0.5s linear;
+    }
+  }
   a{
     display: block;
     margin-top: 5px;
@@ -230,12 +243,12 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: url("../img/play.svg") no-repeat center /cover;
+      background: url("../img/play.png") no-repeat center /cover;
       transition: background 0.5s linear;
     }
     a:hover a:after{
       transition: background 0.5s linear;
-      background: url("../img/play-white.svg") no-repeat center /cover;
+      background: url("../img/play-white.png") no-repeat center /cover;
     }
   }
   &__title{
@@ -286,15 +299,21 @@
 }
 .history{
   &__slider{
-    height:100%;
     max-height: 600px;
     img{
       display: block;
       width: 100%;
       object-fit: cover;
+      object-position: top;
+      height: 100%;
+      max-height: 600px;
       &:hover{
         cursor: pointer;
       }
+    }
+    &__wrapper{
+      height: 100% !important;
+      max-height: 600px !important;
     }
     .swiper-pagination-bullet{
       width: 30px;
@@ -305,6 +324,7 @@
   }
   .history__item{
     position: relative;
+    height: 100%;
     a{
       display: block;
       text-decoration: none;
@@ -312,7 +332,7 @@
       padding: 1.5%;
       position: absolute;
       z-index: 5;
-      bottom: 35%;
+      bottom: 20%;
       right: 10%;
       background-color: #dc4128;
       color:white;
@@ -326,6 +346,8 @@
     }
   }
 }
+
+
 
 @media (max-width: 1200px){
   .header__arrow{
